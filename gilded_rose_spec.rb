@@ -74,9 +74,6 @@ describe "#update_quality" do
       end
     end
 
-      end
-end
-=begin
 
     context "Sulfuras" do
       Given(:initial_quality) { 80 }
@@ -98,6 +95,10 @@ end
         Then { item.quality.should == initial_quality }
       end
     end
+
+  end
+end
+=begin
 
     context "Backstage pass" do
       Given(:name) { "Backstage passes to a TAFKAL80ETC concert" }

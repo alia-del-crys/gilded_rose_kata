@@ -4,18 +4,24 @@ def update_quality(items)
   items.each do |item|
     puts "/n"
     puts "dentro de items.each"
-    item.sell_in -=1
     puts item.inspect
+    
     max_quality(item)
   end
 end
 
 def max_quality(item_n)
   puts "dentro de max quality"
-  if item_n.quality > 50
+  if item_n.quality == 80
+    puts "apaño para sulfuras"
+    puts item_n.inspect
+  elsif item_n.quality >= 50 
     puts "ITEM QUALITY MAYOR DE 50"
-  elsif item_n.quality >0
+    item.sell_in -=1
+    puts item.inspect
+  elsif item_n.quality >=0
     puts "item qualiy menor de 50"
+    item.sell_in -=1
     if item_n.name == "NORMAL ITEM"
      
       rule_normal_item(item_n)
@@ -35,8 +41,9 @@ def max_quality(item_n)
 end
 
 def rule_normal_item(item)
-  if item.quality >=50
+  if item.quality >=50 
     item.quality = 50 
+  elsif item.quality == 0
   else
     if item.sell_in > 0
       item.quality -=1
@@ -47,7 +54,6 @@ def rule_normal_item(item)
 end
 
 def rule_aged(item)
-       puts "dentro de aged brie"
   if item.sell_in > 0
     item.quality +=1 unless item.quality >=50
   else
@@ -57,11 +63,10 @@ def rule_aged(item)
       item.quality +=2 unless item.quality >=48
     end
   end
-  puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 end
 
 def rule_bakstage_passes(item)
-        puts "dentro de backstage"
+  puts "dentro de backstage"
   if item.sell_in > 5 && item.sell_in < 11
     item.quality +=1
   elsif item.sell_in >= 0 && item.sell_in < 6

@@ -16,7 +16,7 @@ calidad tiene el maximo en 50
 
 reglas especiales:
 Bried Aged: aumenta la calidad cuando aumentan los dias (mirar si tiene fecha de caducidad??)
-Sulfuras: no se vende, calidad en 80 y no cambia
+Sulfuras: no se vende, calidad en 80 y no cambia SU FECHA ES INMOVIL
 backstage pase: calidad por dos cada dia entre 10 y 5 dias antes de la fecha, calidad por tres de 5 a 0, calidad 0 despues de la fecha (mirar en el codigo si el 5 dia se aplica 2x o 3x)
 Conjured: degrada la calidad dos veces mas rapido de lo normal
 
