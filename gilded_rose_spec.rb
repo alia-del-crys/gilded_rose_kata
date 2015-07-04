@@ -9,12 +9,10 @@ describe "#update_quality" do
     Given(:item) { Item.new(name, initial_sell_in, initial_quality) }
 
     When { update_quality([item]) }
-
     context "normal item" do
       Given(:name) { "NORMAL ITEM" }
 
       Invariant { item.sell_in.should == initial_sell_in-1 }
-
       context "before sell date" do
         Then { item.quality.should == initial_quality-1 }
       end
@@ -35,6 +33,9 @@ describe "#update_quality" do
       end
     end
 
+  end
+end
+=begin
     context "Aged Brie" do
       Given(:name) { "Aged Brie" }
 
@@ -198,7 +199,6 @@ describe "#update_quality" do
       end
     end
   end
-
   context "with several objects" do
     Given(:items) {
       [
@@ -216,3 +216,4 @@ describe "#update_quality" do
     Then { items[1].sell_in.should == 2 }
   end
 end
+=end

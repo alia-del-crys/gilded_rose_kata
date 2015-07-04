@@ -1,0 +1,33 @@
+Articulos:
+Bried Aged
+Sulfuras
+Backstage pase
+A INCLUIR: Conjured
+
+Attributos: 
+sellin: numero de dias hasta fecha de caducidad
+calidad: valor del articulo
+
+regla general:
+valor decreciente hasta fecha de caducidad
+fecha de caducidad pasada -> valor se reduce dos veces mas rapido
+calidad nunca es negativa
+calidad tiene el maximo en 50
+
+reglas especiales:
+Bried Aged: aumenta la calidad cuando aumentan los dias (mirar si tiene fecha de caducidad??)
+Sulfuras: no se vende, calidad en 80 y no cambia
+backstage pase: calidad por dos cada dia entre 10 y 5 dias antes de la fecha, calidad por tres de 5 a 0, calidad 0 despues de la fecha (mirar en el codigo si el 5 dia se aplica 2x o 3x)
+Conjured: degrada la calidad dos veces mas rapido de lo normal
+
+  item.name =['Aged Brie','Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros', 'Normal Item']
+
+  rules = [{name: 'normal_before_sell_in', quality: -1, min_quality: 0, max_quality: 50, sell_in: > 0}
+           {name: 'normal_after_sell_in', quality: -2, min_quality: 0, max_quality: 50, sell_in: < 0 }
+           {name: 'Aged Brie', quality: +1, min_quality: 0, max_quality: 50, sell_in: > 0 }
+           {name: 'Sulfuras', quality: +0, min_quality: 80, max_quality: 80, sell_in: > 0 }
+           {name: 'Backstage_passes_10', quality: +1 min_quality: 0, max_quality: 50, sell_in:< 11 && > 5}
+           {name: 'Backstage_passes_5', quality: +2 min_quality: 0, max_quality: 50, sell_in: < 6}
+           {name: 'Conjured', quality: -2, min_quality: 0, max_quality: 50, sell_in: >0}
+         ]
+
