@@ -3,7 +3,6 @@ def update_quality(items)
 
   items.each do |item|
     puts "/n"
-    puts "dentro de items.each"
     puts item.inspect
     
     max_quality(item)
@@ -11,17 +10,14 @@ def update_quality(items)
 end
 
 def max_quality(item_n)
-  puts "dentro de max quality"
   if item_n.quality == 80
-    puts "apaño para sulfuras"
-    puts item_n.inspect
+    puts "Sulfuras"
   elsif item_n.quality >= 50 
     puts "ITEM QUALITY MAYOR DE 50"
     item.sell_in -=1
-    puts item.inspect
   elsif item_n.quality >=0
     puts "item qualiy menor de 50"
-    item.sell_in -=1
+    
     if item_n.name == "NORMAL ITEM"
      
       rule_normal_item(item_n)
@@ -41,6 +37,7 @@ def max_quality(item_n)
 end
 
 def rule_normal_item(item)
+
   if item.quality >=50 
     item.quality = 50 
   elsif item.quality == 0
@@ -51,9 +48,11 @@ def rule_normal_item(item)
       item.quality -=2
     end
   end
+  item.sell_in -=1
 end
 
 def rule_aged(item)
+
   if item.sell_in > 0
     item.quality +=1 unless item.quality >=50
   else
@@ -63,17 +62,23 @@ def rule_aged(item)
       item.quality +=2 unless item.quality >=48
     end
   end
+  item.sell_in -=1
 end
 
 def rule_bakstage_passes(item)
   puts "dentro de backstage"
-  if item.sell_in > 5 && item.sell_in < 11
+  if item.sell_in >= 11
+    "dentro de sell in 11 #{item.inspect}"
     item.quality +=1
-  elsif item.sell_in >= 0 && item.sell_in < 6
-    item.quality += 2
-  else item.sell_in < 0
+    "despues de sell in 11 #{item.inspect}"
+  elsif item.sell_in >= 6 && item.sell_in <= 10
+    item.quality +=2
+  elsif item.sell_in > 0 && item.sell_in <= 5
+    item.quality += 3
+  else item.sell_in <= 0
     item.quality = 0
   end
+  item.sell_in -=1
     puts item.inspect
   puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 end
@@ -85,52 +90,6 @@ def rule_conjured(item)
   puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 end
 
-def apply_rules(item)
-  puts "he llegado a apply_rules"
-  if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
-    if item.quality > 0
-      if item.name != 'Sulfuras, Hand of Ragnaros'
-        item.quality -= 1
-      end
-    end
-  else
-    #if item.quality < 50
-      item.quality += 1
-      if item.name == 'Backstage passes to a TAFKAL80ETC concert'
-        if item.sell_in < 11
-          #if item.quality < 50
-            item.quality += 1
-          #end
-        end
-        if item.sell_in < 6
-          #if item.quality < 50
-            item.quality += 1
-          #end
-        end
-      end
-    #end
-  end
-  if item.name != 'Sulfuras, Hand of Ragnaros'
-    item.sell_in -= 1
-  end
-  if item.sell_in < 0
-    if item.name != "Aged Brie"
-      if item.name != 'Backstage passes to a TAFKAL80ETC concert'
-        if item.quality > 0
-          if item.name != 'Sulfuras, Hand of Ragnaros'
-            item.quality -= 1
-          end
-        end
-      else
-        item.quality = item.quality - item.quality
-      end
-    else
-      #if item.quality < 50
-        item.quality += 1
-      #end
-    end
-  end
-end
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
 

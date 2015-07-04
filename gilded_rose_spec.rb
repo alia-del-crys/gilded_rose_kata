@@ -96,9 +96,6 @@ describe "#update_quality" do
       end
     end
 
-  end
-end
-=begin
 
     context "Backstage pass" do
       Given(:name) { "Backstage passes to a TAFKAL80ETC concert" }
@@ -164,6 +161,11 @@ end
         Then { item.quality.should == 0 }
       end
     end
+
+    
+  end
+end
+=begin
 
     context "conjured item" do
       before { pending }
