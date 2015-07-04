@@ -1,51 +1,53 @@
 def update_quality(items)
-  names=['Aged Brie','Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros',
-         'Normal Item', 'Conjured Mana Cake']
+  names_method=['Aged Brie','Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros',
+                'Normal Item', 'Conjured Mana Cake']
 
   items.each do |item|    
-    eval_quality(item)
-    item.sell_in -=1 unless item.name == 'Sulfuras, Hand of Ragnaros'
+    choose_quality(item)
   end
 end
 
-def eval_quality(item_n)
-  if item_n.quality == 80
-    puts "Sulfuras"
-  elsif item_n.quality >= 50
-    puts "item en maximo valor"
-  elsif item_n.quality >=0
-    
-    if item_n.name == "NORMAL ITEM"
-     
-      rule_normal_item(item_n)
-    elsif item_n.name == "Aged Brie"
- 
-      rule_aged(item_n)
-    elsif item_n.name == "Backstage passes to a TAFKAL80ETC concert"
-
-      rule_bakstage_passes(item_n)
-    else item_n.name == "Conjured Mana Cake"
-    
-      rule_conjured(item_n)
+def choose_quality(item)
+  if item.quality == 50
+    item.sell_in -=1
+  elsif item.quality >0   
+    if item.name == "NORMAL ITEM" 
+      rule_normal_item(item)
+    elsif item.name == "Sulfuras, Hand of Ragnaros"
+      puts item.inspect
+      rule_sulfuras(item)
+    elsif item.name == "Aged Brie"
+      rule_aged(item)
+    elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
+      rule_bakstage_passes(item)
+    else item.name == "Conjured Mana Cake"
+      rule_conjured(item)
     end
-  else
-    puts "item quality no puede ser menor de 0"  
+  elsif item.quality == 0
+    item.sell_in -=1
+  else item.quality < 0
+    puts "item quality no puede ser menor de 0"
   end
 end
+
 
 def rule_normal_item(item)
-
   if item.quality >=50 
     item.quality = 50 
-  elsif item.quality == 0
-  else
+  elsif item.quality != 0
     if item.sell_in > 0
       item.quality -=1
     else
       item.quality -=2
     end
   end
+  item.sell_in -= 1
 end
+
+def rule_sulfuras(item)
+  puts "en rule sulfuras"
+end
+
 
 def rule_aged(item)
 
@@ -58,6 +60,8 @@ def rule_aged(item)
       item.quality +=2 unless item.quality >=48
     end
   end
+  
+  item.sell_in -= 1
 end
 
 def rule_bakstage_passes(item)
@@ -70,11 +74,11 @@ def rule_bakstage_passes(item)
   else item.sell_in <= 0
     item.quality = 0
   end
+  
+    item.sell_in -= 1
 end
 
 def rule_conjured(item)
-  puts "dentro de conjured"
-  puts "#{item.inspect}"
   if item.quality == 0
     puts "quialiyt se queda igual"
   else
@@ -83,9 +87,8 @@ def rule_conjured(item)
     else item.sell_in <=0 
       item.quality -=4 
     end  
-  end
-  puts "#{item.inspect}"
-  puts "\n"
+  end  
+  item.sell_in -= 1
 end
 
 
@@ -103,4 +106,3 @@ Item = Struct.new(:name, :sell_in, :quality)
 #   Item.new("Backstage passes to a TAFKAL80ETC concert", 15, 20),
 #   Item.new("Conjured Mana Cake", 3, 6),
 # ]
-
