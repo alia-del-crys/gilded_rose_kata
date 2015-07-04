@@ -9,10 +9,12 @@ describe "#update_quality" do
     Given(:item) { Item.new(name, initial_sell_in, initial_quality) }
 
     When { update_quality([item]) }
+
     context "normal item" do
       Given(:name) { "NORMAL ITEM" }
 
       Invariant { item.sell_in.should == initial_sell_in-1 }
+
       context "before sell date" do
         Then { item.quality.should == initial_quality-1 }
       end
@@ -32,7 +34,6 @@ describe "#update_quality" do
         Then { item.quality.should == 0 }
       end
     end
-
 
     context "Aged Brie" do
       Given(:name) { "Aged Brie" }
@@ -74,7 +75,6 @@ describe "#update_quality" do
       end
     end
 
-
     context "Sulfuras" do
       Given(:initial_quality) { 80 }
       Given(:name) { "Sulfuras, Hand of Ragnaros" }
@@ -95,7 +95,6 @@ describe "#update_quality" do
         Then { item.quality.should == initial_quality }
       end
     end
-
 
     context "Backstage pass" do
       Given(:name) { "Backstage passes to a TAFKAL80ETC concert" }
@@ -162,11 +161,6 @@ describe "#update_quality" do
       end
     end
 
-    
-  end
-end
-=begin
-
     context "conjured item" do
       before { pending }
       Given(:name) { "Conjured Mana Cake" }
@@ -204,6 +198,7 @@ end
       end
     end
   end
+
   context "with several objects" do
     Given(:items) {
       [
@@ -221,4 +216,3 @@ end
     Then { items[1].sell_in.should == 2 }
   end
 end
-=end

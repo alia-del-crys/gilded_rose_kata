@@ -1,10 +1,8 @@
 def update_quality(items)
-  names=['Aged Brie','Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros', 'Normal Item', 'Conjured']
+  names=['Aged Brie','Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros',
+         'Normal Item', 'Conjured Mana Cake']
 
-  items.each do |item|
-    puts "/n"
-    puts item.inspect
-    
+  items.each do |item|    
     max_quality(item)
   end
 end
@@ -12,11 +10,9 @@ end
 def max_quality(item_n)
   if item_n.quality == 80
     puts "Sulfuras"
-  elsif item_n.quality >= 50 
-    puts "ITEM QUALITY MAYOR DE 50"
+  elsif item_n.quality >= 50
     item.sell_in -=1
   elsif item_n.quality >=0
-    puts "item qualiy menor de 50"
     
     if item_n.name == "NORMAL ITEM"
      
@@ -27,7 +23,7 @@ def max_quality(item_n)
     elsif item_n.name == "Backstage passes to a TAFKAL80ETC concert"
 
       rule_bakstage_passes(item_n)
-    else item_n.name == "Conjured"
+    else item_n.name == "Conjured Mana Cake"
     
       rule_conjured(item_n)
     end
@@ -66,11 +62,8 @@ def rule_aged(item)
 end
 
 def rule_bakstage_passes(item)
-  puts "dentro de backstage"
   if item.sell_in >= 11
-    "dentro de sell in 11 #{item.inspect}"
     item.quality +=1
-    "despues de sell in 11 #{item.inspect}"
   elsif item.sell_in >= 6 && item.sell_in <= 10
     item.quality +=2
   elsif item.sell_in > 0 && item.sell_in <= 5
@@ -79,15 +72,24 @@ def rule_bakstage_passes(item)
     item.quality = 0
   end
   item.sell_in -=1
-    puts item.inspect
-  puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 end
 
 def rule_conjured(item)
   puts "dentro de conjured"
-  item.quality -= 2
-    puts item.inspect
-  puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  puts "#{item.inspect}"
+  if item.quality == 0
+    puts "quialiyt se queda igual"
+  else
+    if item.sell_in > 0 
+      puts "item.sell_in >0"
+      item.quality -=2
+    else item.sell_in <=0 
+      item.quality -=4 
+    end  
+  end
+  item.sell_in -=1
+  puts "#{item.inspect}"
+  puts "\n"
 end
 
 
