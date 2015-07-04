@@ -1,9 +1,9 @@
 def update_quality(items)
-  names_method={'Aged Brie' => 'rule_aged' ,
-                'Backstage passes to a TAFKAL80ETC concert' => 'rule_bakstage_passes', 
-                'Sulfuras, Hand of Ragnaros' => 'rule_sulfuras',
-                'Normal Item' => 'rule_normal_item', 
-                'Conjured Mana Cake'=> 'rule_conjured'}
+  @names_method = {'Aged Brie' => 'rule_aged' ,
+                  'Backstage passes to a TAFKAL80ETC concert' => 'rule_bakstage_passes', 
+                  'Sulfuras, Hand of Ragnaros' => 'rule_sulfuras',
+                  'NORMAL ITEM' => 'rule_normal_item', 
+                  'Conjured Mana Cake'=> 'rule_conjured'}
 
   items.each do |item|    
     choose_quality(item)
@@ -15,18 +15,12 @@ def choose_quality(item)
     item.sell_in -=1
   elsif item.quality == 0
     item.sell_in -=1
-  elsif  
-    if item.name == "NORMAL ITEM" 
-      rule_normal_item(item)
-    elsif item.name == "Sulfuras, Hand of Ragnaros"
-      puts item.inspect
-      rule_sulfuras(item)
-    elsif item.name == "Aged Brie"
-      rule_aged(item)
-    elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
-      rule_bakstage_passes(item)
-    else item.name == "Conjured Mana Cake"
-      rule_conjured(item)
+  elsif
+    @names_method.each do |name, method|
+      if item.name == name
+        send(method, item)
+        #http://stackoverflow.com/questions/13795627/ruby-send-method-passing-multiple-parameters
+      end
     end
   end
 end
@@ -42,7 +36,7 @@ def rule_normal_item(item)
 end
 
 def rule_sulfuras(item)
-  puts "en rule sulfuras"
+
 end
 
 
