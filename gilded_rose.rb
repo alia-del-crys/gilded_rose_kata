@@ -3,15 +3,16 @@ def update_quality(items)
          'Normal Item', 'Conjured Mana Cake']
 
   items.each do |item|    
-    max_quality(item)
+    eval_quality(item)
+    item.sell_in -=1 unless item.name == 'Sulfuras, Hand of Ragnaros'
   end
 end
 
-def max_quality(item_n)
+def eval_quality(item_n)
   if item_n.quality == 80
     puts "Sulfuras"
   elsif item_n.quality >= 50
-    item.sell_in -=1
+    puts "item en maximo valor"
   elsif item_n.quality >=0
     
     if item_n.name == "NORMAL ITEM"
@@ -44,7 +45,6 @@ def rule_normal_item(item)
       item.quality -=2
     end
   end
-  item.sell_in -=1
 end
 
 def rule_aged(item)
@@ -58,7 +58,6 @@ def rule_aged(item)
       item.quality +=2 unless item.quality >=48
     end
   end
-  item.sell_in -=1
 end
 
 def rule_bakstage_passes(item)
@@ -71,7 +70,6 @@ def rule_bakstage_passes(item)
   else item.sell_in <= 0
     item.quality = 0
   end
-  item.sell_in -=1
 end
 
 def rule_conjured(item)
@@ -81,13 +79,11 @@ def rule_conjured(item)
     puts "quialiyt se queda igual"
   else
     if item.sell_in > 0 
-      puts "item.sell_in >0"
       item.quality -=2
     else item.sell_in <=0 
       item.quality -=4 
     end  
   end
-  item.sell_in -=1
   puts "#{item.inspect}"
   puts "\n"
 end
