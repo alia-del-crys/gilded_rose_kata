@@ -35,21 +35,28 @@ def max_quality(item_n)
 end
 
 def rule_normal_item(item)
-  puts "dentro de normal"
-  puts "ITEM INSPECT EN NORMAL #{item.inspect}"
-  if item.sell_in > 0
-    item.quality -=1
+  if item.quality >=50
+    item.quality = 50 
   else
-    item.quality -=2
+    if item.sell_in > 0
+      item.quality -=1
+    else
+      item.quality -=2
+    end
   end
-  puts item.inspect
-  puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 end
 
 def rule_aged(item)
        puts "dentro de aged brie"
-  item.quality +=1
-    puts item.inspect
+  if item.sell_in > 0
+    item.quality +=1 unless item.quality >=50
+  else
+    if item.quality >=48
+      item.quality =50
+    else
+      item.quality +=2 unless item.quality >=48
+    end
+  end
   puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 end
 

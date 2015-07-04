@@ -33,9 +33,7 @@ describe "#update_quality" do
       end
     end
 
-  end
-end
-=begin
+
     context "Aged Brie" do
       Given(:name) { "Aged Brie" }
 
@@ -75,6 +73,10 @@ end
         end
       end
     end
+
+      end
+end
+=begin
 
     context "Sulfuras" do
       Given(:initial_quality) { 80 }
