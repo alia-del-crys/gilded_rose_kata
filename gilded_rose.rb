@@ -1,6 +1,9 @@
 def update_quality(items)
-  names_method=['Aged Brie','Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros',
-                'Normal Item', 'Conjured Mana Cake']
+  names_method={'Aged Brie' => 'rule_aged' ,
+                'Backstage passes to a TAFKAL80ETC concert' => 'rule_bakstage_passes', 
+                'Sulfuras, Hand of Ragnaros' => 'rule_sulfuras',
+                'Normal Item' => 'rule_normal_item', 
+                'Conjured Mana Cake'=> 'rule_conjured'}
 
   items.each do |item|    
     choose_quality(item)
@@ -10,7 +13,9 @@ end
 def choose_quality(item)
   if item.quality == 50
     item.sell_in -=1
-  elsif item.quality >0   
+  elsif item.quality == 0
+    item.sell_in -=1
+  elsif  
     if item.name == "NORMAL ITEM" 
       rule_normal_item(item)
     elsif item.name == "Sulfuras, Hand of Ragnaros"
@@ -23,10 +28,6 @@ def choose_quality(item)
     else item.name == "Conjured Mana Cake"
       rule_conjured(item)
     end
-  elsif item.quality == 0
-    item.sell_in -=1
-  else item.quality < 0
-    puts "item quality no puede ser menor de 0"
   end
 end
 
@@ -79,14 +80,10 @@ def rule_bakstage_passes(item)
 end
 
 def rule_conjured(item)
-  if item.quality == 0
-    puts "quialiyt se queda igual"
-  else
-    if item.sell_in > 0 
-      item.quality -=2
-    else item.sell_in <=0 
-      item.quality -=4 
-    end  
+  if item.sell_in > 0 
+    item.quality -=2
+  else item.sell_in <=0 
+    item.quality -=4 
   end  
   item.sell_in -= 1
 end
